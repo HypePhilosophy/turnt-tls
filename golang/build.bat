@@ -1,0 +1,6 @@
+@echo off
+echo Building dll ...
+go build -o goturnt.dll -buildmode=c-shared
+echo Copying dll ...
+copy /y goturnt.dll ..\..\prebuilt-binaries\ 
+echo Complete
