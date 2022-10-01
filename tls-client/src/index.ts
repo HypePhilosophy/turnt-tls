@@ -4,7 +4,7 @@ import { CookieJar } from "tough-cookie";
 var cookieJar = new CookieJar();
 
 testTLS();
-diffSiteTest();
+// diffSiteTest();
 async function testTLS() {
     let options = {
         method: 'GET',
@@ -27,12 +27,11 @@ async function testTLS() {
         },
     }
     
-    let GetResp = await turnt("https://ja3er.com/json", options)
+    let GetResp = await turnt("https://incolumitas.com/pages/TLS-Fingerprint/", options)
 
-    console.log(GetResp);
+    console.log(GetResp.body);
 
     console.log(GetResp.status)
-    console.log(cookieJar.toJSON().cookies)
 }
 
 async function diffSiteTest() {
@@ -65,8 +64,9 @@ async function diffSiteTest() {
 async function transformCookie(cookies: any) {
     var cookieArray: any;
     cookieArray = {};
-    await cookies.forEach(async (cookie: any) => {
-        cookieArray[cookie.key] = await cookie.value;
+    if (cookies == null) return
+    cookies.forEach((cookie: any) => {
+        cookieArray[cookie.key] = cookie.value;
     });
     return cookieArray;
 }

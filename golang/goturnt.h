@@ -68,7 +68,7 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-extern char* CreateRequest(char* urlC, char* headerC, char* cookiesC, char* bodyC, char* methodC, char* proxyC);
+extern __declspec(dllexport) char* CreateRequest(char* urlC, char* headerC, char* cookiesC, char* bodyC, char* methodC, char* proxyC);
 
 #ifdef __cplusplus
 }
