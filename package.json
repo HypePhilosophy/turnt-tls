@@ -1,5 +1,5 @@
 {
-  "name": "tls-client",
+  "name": "turnt-tls",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",

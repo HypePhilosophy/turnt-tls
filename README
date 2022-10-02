@@ -1,0 +1,8 @@
+# tls-client
+
+This is an advanced NodeJS implementation of Golang's utls repository. It's syntax is similar to that of npm's popular (deprecated) request package.
+
+## Setup
+1. Clone the repository
+2. Install the necessary dependencies with `npm install`
+3. Run and build the test case `npm run start`

@@ -1,4 +1,4 @@
-import { turnt } from "./client";
+import { turnt } from "./turnt";
 import { CookieJar } from "tough-cookie";
 
 var cookieJar = new CookieJar();
