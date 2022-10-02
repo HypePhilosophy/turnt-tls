@@ -29,7 +29,7 @@ async function testTLS() {
     
     let GetResp = await turnt("https://incolumitas.com/pages/TLS-Fingerprint/", options)
 
-    console.log(GetResp.body);
+    // console.log(GetResp.body);
 
     console.log(GetResp.status)
 }
@@ -74,7 +74,6 @@ async function transformCookie(cookies: any) {
 async function setCookies(cookies: any) {
     if (cookies == null) return
     cookies.forEach(async (cookie: any) => {
-        
         await cookieJar.setCookie(`${cookie.Name}=${cookie.Value}`,'https://www.amazon.com')
     });
     return await transformCookie((cookieJar.toJSON().cookies))

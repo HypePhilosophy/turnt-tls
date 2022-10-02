@@ -39,7 +39,7 @@ return new Promise (async (resolve, reject) => {
     // Loads DLL
 
     // * /Users/jeffmao/Documents/GitHub/ja3spoof/golang/goturnt.dylib
-    let GoRequests = ffi.Library(path.join(__dirname, '../../golang/goturnt'), {
+    let GoRequests = ffi.Library(path.join(__dirname, '../golang/goturnt'), {
         'CreateRequest': ['string', ['string','string','string','string','string', 'string']]
     })
 
@@ -109,6 +109,7 @@ async function convertCookies(url: string, cookieJar: any) {
 }
 
 async function setCookies(cookies: any[], cookieJar: any, url: string) {
+    if (cookies == null) return;
     cookies.forEach((cookie: {[key: string]: string | number}) => {
         cookieJar.setCookieSync(CookieToRaw(cookie), url);
     });
@@ -117,3 +118,4 @@ async function setCookies(cookies: any[], cookieJar: any, url: string) {
 function CookieToRaw(cookieObj: any) {
     return `${cookieObj.Name}=${cookieObj.Value}`
 }
+
