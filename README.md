@@ -62,7 +62,7 @@ Currently, the turnt-tls client supports the following methods: `GET`, `POST`, `
 ## Notes
 Much of the syntax is similar to the popular but deprecated [requests](https://www.npmjs.com/package/request) package. However, it is worth to note that pseudo-header order is not supported, but with enough support I will add it. Additionally, I will add more http methods if people would like me to. 
 
-I have also taken the liberty to provide pre-made binaries that will run on MacOS, Linux, and Windows, however you are free to build your own. All that would entail would be changing a few lines in the `./golang/build.bat file.
+I have also taken the liberty to provide pre-made binaries that will run on MacOS, Linux, and Windows, however you are free to build your own. All that would entail would be changing a few lines in the `./golang/build.bat file`.
 
 Anyone is welcome to contribute to this module to implement any more http methods or functionality. Just make a pull request and I will review it :)
 
