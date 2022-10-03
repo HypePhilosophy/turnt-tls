@@ -1,4 +1,4 @@
-# tls-client
+# turnt-tls
 
 This is an advanced NodeJS implementation of Golang's utls repository with session support provided through [tough-cookie](https://www.npmjs.com/package/tough-cookie). It's syntax is similar to that of npm's popular (deprecated) request package.
 
