@@ -1,8 +1,8 @@
 {
   "name": "turnt-tls",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/turnt.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,8 @@
     "@types/tough-cookie": "^4.0.0",
     "ffi-napi": "^4.0.3",
     "path": "^0.12.7",
-    "tough-cookie": "^4.0.0"
+    "tough-cookie": "^4.0.0",
+    "turnt-tls": "^1.0.2"
   },
   "devDependencies": {
     "@types/ffi-napi": "^2.4.3",

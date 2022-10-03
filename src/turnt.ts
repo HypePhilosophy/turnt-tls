@@ -1,4 +1,3 @@
-//import { TurntGenerator } from "./turntgenerator";
 import * as ffi from 'ffi-napi'
 import path from 'path'
 
@@ -118,4 +117,3 @@ async function setCookies(cookies: any[], cookieJar: any, url: string) {
 function CookieToRaw(cookieObj: any) {
     return `${cookieObj.Name}=${cookieObj.Value}`
 }
-

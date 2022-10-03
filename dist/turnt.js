@@ -63,7 +63,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.turnt = void 0;
-//import { TurntGenerator } from "./turntgenerator";
 var ffi = __importStar(require("ffi-napi"));
 var path_1 = __importDefault(require("path"));
 function turnt(url, options) {
