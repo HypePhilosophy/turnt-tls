@@ -1,6 +1,6 @@
 # turnt-tls
 
-This is an advanced NodeJS implementation of Golang's utls repository with session support provided through [tough-cookie](https://www.npmjs.com/package/tough-cookie). It's syntax is similar to that of npm's popular (deprecated) request package.
+This is an advanced NodeJS implementation of Golang's utls repository with session support provided through [tough-cookie](https://www.npmjs.com/package/tough-cookie). It's syntax is similar to that of npm's popular (deprecated) request package. Additionally, it supports pseudo-header order as well as normal header order.
 
 ## Installation
 ```
@@ -60,7 +60,7 @@ Currently, the turnt-tls client supports the following methods: `GET`, `POST`, `
 ```
 
 ## Notes
-Much of the syntax is similar to the popular but deprecated [requests](https://www.npmjs.com/package/request) package. However, it is worth to note that pseudo-header order is not supported, but with enough support I will add it. Additionally, I will add more http methods if people would like me to. 
+Much of the syntax is similar to the popular but deprecated [requests](https://www.npmjs.com/package/request) package.
 
 I have also taken the liberty to provide pre-made binaries that will run on MacOS, Linux, and Windows, however you are free to build your own. All that would entail would be changing a few lines in the `./golang/build.bat` file.
 
