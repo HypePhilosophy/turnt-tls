@@ -3,9 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	http "github.com/adam-0001/fhttp"
+	"github.com/adam-0001/fhttp/cookiejar"
 	"log"
-	"net/http"
-	"net/http/cookiejar"
 	"net/url"
 )
 

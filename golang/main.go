@@ -4,19 +4,22 @@ import "C"
 
 import (
 	"encoding/json"
+	"github.com/adam-0001/fhttp/cookiejar"
 	"io"
 	"log"
-	"net/http"
-	"net/http/cookiejar"
 	"net/url"
 	"strconv"
 	"strings"
 
-	tls "github.com/refraction-networking/utls"
-	"github.com/x04/cclient"
+	// "github.com/x04/cclient"
+	"github.com/adam-0001/cclient"
+	http "github.com/adam-0001/fhttp"
+	tls "github.com/adam-0001/utls"
+	// "github.com/HypePhilosophy/cclient"
+	// tls "github.com/refraction-networking/utls"
 )
 
-func main(){}
+func main() {}
 
 //export CreateRequest
 func CreateRequest(urlC *C.char, headerC *C.char, cookiesC *C.char, bodyC *C.char, methodC *C.char, proxyC *C.char) *C.char {
@@ -39,9 +42,9 @@ func CreateRequest(urlC *C.char, headerC *C.char, cookiesC *C.char, bodyC *C.cha
 
 	// Creates the http client and initialises the request.
 	if proxy != "" {
-		client, err = cclient.NewClient(tls.HelloChrome_Auto, proxy)
+		client, err = cclient.NewClient(tls.HelloChrome_Auto, proxy, true, 6)
 	} else {
-		client, err = cclient.NewClient(tls.HelloChrome_Auto)
+		client, err = cclient.NewClient(tls.HelloChrome_Auto, "", true, 6)
 	}
 
 	if err != nil {
