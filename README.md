@@ -49,6 +49,7 @@ Currently, the turnt-tls client supports the following methods: `GET`, `POST`, `
                 'Sec-Fetch-Dest': 'document',
                 'Accept-Language': 'en-US,en;q=0.9'
             },
+            proxy: "user:pass@host:port",
         }
         
         let GetResp = await turnt("https://incolumitas.com/pages/TLS-Fingerprint/", options)
