@@ -4,6 +4,7 @@ import "C"
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/adam-0001/fhttp/cookiejar"
 	"io"
 	"log"
@@ -16,7 +17,18 @@ import (
 	tls "github.com/adam-0001/utls"
 )
 
-func main() {}
+func main() {
+	url := "https://incolumitas.com/pages/TLS-Fingerprint/"
+	headers := "{\"accept\":\"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\",\"accept-language\":\"en-US,en;q=0.9\",\"cache-control\":\"max-age=0\",\"dnt\":\"1\",\"sec-ch-ua\":\"\\\"Chromium\\\";v=\\\"106\\\", \\\"Google Chrome\\\";v=\\\"106\\\", \\\"Not;A=Brand\\\";v=\\\"99\\\"\",\"sec-ch-ua-mobile\":\"?0\",\"sec-ch-ua-platform\":\"\\\"macOS\\\"\",\"sec-fetch-dest\":\"document\",\"sec-fetch-mode\":\"navigate\",\"sec-fetch-site\":\"none\",\"sec-fetch-user\":\"?1\",\"upgrade-insecure-requests\":\"1\",\"user-agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36\"}"
+	cookies := "{}"
+	body := ""
+	method := "GET"
+	proxy := ""
+
+	if err := CreateRequest(C.CString(url), C.CString(headers), C.CString(cookies), C.CString(body), C.CString(method), C.CString(proxy)); err != nil {
+		fmt.Println(err)
+	}
+}
 
 //export CreateRequest
 func CreateRequest(urlC *C.char, headerC *C.char, cookiesC *C.char, bodyC *C.char, methodC *C.char, proxyC *C.char) *C.char {

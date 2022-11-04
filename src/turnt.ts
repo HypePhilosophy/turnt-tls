@@ -64,7 +64,14 @@ return new Promise (async (resolve, reject) => {
     if (Buffer.isBuffer(body)) body = body.toString();
     if (typeof body === 'object') body = FormEncode(body);
     
+    console.log(url)
+    console.log(JSON.stringify(headers))
+    console.log(JSON.stringify(cookies))
+    console.log(body)
+    console.log(options["method"])
+    console.log(options["proxy"])
     res = GoRequests.CreateRequest(url, JSON.stringify(headers), JSON.stringify(cookies), body, options["method"], options["proxy"])
+
 
     console.log(JSON.stringify(headers))
     let result = JSON.parse(res);

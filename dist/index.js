@@ -39,7 +39,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var turnt_1 = require("./turnt");
 var tough_cookie_1 = require("tough-cookie");
 var cookieJar = new tough_cookie_1.CookieJar();
-testTLS();
+// testTLS();
+testPeetTLS();
 function testTLS() {
     return __awaiter(this, void 0, void 0, function () {
         var options, GetResp;
@@ -88,7 +89,7 @@ function testPeetTLS() {
                         method: 'GET',
                         cookieJar: cookieJar,
                         headers: {
-                            'authority': 'tls.peet.ws',
+                            // 'authority': 'tls.peet.ws',
                             'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                             'accept-language': 'en-US,en;q=0.9',
                             'cache-control': 'max-age=0',
@@ -101,12 +102,14 @@ function testPeetTLS() {
                             'sec-fetch-site': 'none',
                             'sec-fetch-user': '?1',
                             'upgrade-insecure-requests': '1',
-                            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36'
+                            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+                            'test': 'test'
                         }
                     };
-                    return [4 /*yield*/, (0, turnt_1.turnt)("https://tls.peet.ws/", options)];
+                    return [4 /*yield*/, (0, turnt_1.turnt)("https://tls.peet.ws/api/all", options)];
                 case 1:
                     response = _a.sent();
+                    console.log(response.body);
                     return [2 /*return*/];
             }
         });

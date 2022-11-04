@@ -47,40 +47,33 @@ func CreateHeaders(req *http.Request, headers string, method string) {
 
 	var hmap map[string]string
 
-	strings.Split(headers, ",")
-
-	oMap := orderedmap.NewOrderedMap[string, any]()
-	count := 0
-	// i = 1 to replace the curly brace
-	for i := 1; i < len(headers)-1; i++ {
-		for j := i; j < len(headers)-i-1; j++ {
-			if headers[j] != '}' && headers[i] == ',' && headers[j] == ',' {
-				s := headers[i:j]
-				s = strings.ReplaceAll(s, "\"", "")
-				strArr := strings.Split(s, ":")
-				oMap.Set(strArr[0], strArr[1])
-
-				count++
-			} else if headers[i] == ',' && headers[j] == '}' {
-				s := headers[i:j]
-				s = strings.ReplaceAll(s, "\"", "")
-				strArr := strings.Split(s, ":")
-				oMap.Set(strArr[0], strArr[1])
-				count++
-				break
-			}
-		}
+	if headers != "{}" {
+		req.Header = http.Header{}
 	}
 
 	json.Unmarshal([]byte(headers), &hmap)
+
+	oMap := orderedmap.NewOrderedMap[string, any]()
+	// i = 1 to replace the curly brace
+	strArr := strings.Split(headers, "\",\"")
+
+	for _, v := range strArr {
+		v = strings.ReplaceAll(v, "\"", "")
+		v = strings.ReplaceAll(v, "{", "")
+		str := strings.Split(v, ":")
+		fmt.Println(str[0])
+		oMap.Set(str[0], "header")
+	}
 
 	for k, v := range hmap {
 		req.Header.Set(k, v)
 	}
 
 	for _, key := range oMap.Keys() {
-		req.Header.Set(http.HeaderOrderKey, key)
+		req.Header.Add(http.HeaderOrderKey, key)
 	}
+
+	fmt.Println(req.Header)
 }
 
 func FillCookieJar(j *cookiejar.Jar, ru string, s string) {
