@@ -78,40 +78,36 @@ function testTLS() {
         });
     });
 }
-function transformCookie(cookies) {
+function testPeetTLS() {
     return __awaiter(this, void 0, void 0, function () {
-        var cookieArray;
-        return __generator(this, function (_a) {
-            cookieArray = {};
-            if (cookies == null)
-                return [2 /*return*/];
-            cookies.forEach(function (cookie) {
-                cookieArray[cookie.key] = cookie.value;
-            });
-            return [2 /*return*/, cookieArray];
-        });
-    });
-}
-function setCookies(cookies) {
-    return __awaiter(this, void 0, void 0, function () {
-        var _this = this;
+        var options, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (cookies == null)
-                        return [2 /*return*/];
-                    cookies.forEach(function (cookie) { return __awaiter(_this, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0: return [4 /*yield*/, cookieJar.setCookie("".concat(cookie.Name, "=").concat(cookie.Value), 'https://www.amazon.com')];
-                                case 1:
-                                    _a.sent();
-                                    return [2 /*return*/];
-                            }
-                        });
-                    }); });
-                    return [4 /*yield*/, transformCookie((cookieJar.toJSON().cookies))];
-                case 1: return [2 /*return*/, _a.sent()];
+                    options = {
+                        method: 'GET',
+                        cookieJar: cookieJar,
+                        headers: {
+                            'authority': 'tls.peet.ws',
+                            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                            'accept-language': 'en-US,en;q=0.9',
+                            'cache-control': 'max-age=0',
+                            'dnt': '1',
+                            'sec-ch-ua': '"Chromium";v="106", "Google Chrome";v="106", "Not;A=Brand";v="99"',
+                            'sec-ch-ua-mobile': '?0',
+                            'sec-ch-ua-platform': '"macOS"',
+                            'sec-fetch-dest': 'document',
+                            'sec-fetch-mode': 'navigate',
+                            'sec-fetch-site': 'none',
+                            'sec-fetch-user': '?1',
+                            'upgrade-insecure-requests': '1',
+                            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36'
+                        }
+                    };
+                    return [4 /*yield*/, (0, turnt_1.turnt)("https://tls.peet.ws/", options)];
+                case 1:
+                    response = _a.sent();
+                    return [2 /*return*/];
             }
         });
     });

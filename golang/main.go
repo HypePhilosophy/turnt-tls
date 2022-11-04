@@ -11,12 +11,9 @@ import (
 	"strconv"
 	"strings"
 
-	// "github.com/x04/cclient"
 	"github.com/adam-0001/cclient"
 	http "github.com/adam-0001/fhttp"
 	tls "github.com/adam-0001/utls"
-	// "github.com/HypePhilosophy/cclient"
-	// tls "github.com/refraction-networking/utls"
 )
 
 func main() {}

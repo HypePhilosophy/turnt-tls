@@ -124,6 +124,7 @@ function turnt(url, options) {
                     if (typeof body === 'object')
                         body = FormEncode(body);
                     res = GoRequests.CreateRequest(url, JSON.stringify(headers), JSON.stringify(cookies), body, options["method"], options["proxy"]);
+                    console.log(JSON.stringify(headers));
                     result = JSON.parse(res);
                     for (header in result["headers"]) {
                         result["headers"][header] = result["headers"][header][0];

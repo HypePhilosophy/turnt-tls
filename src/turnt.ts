@@ -37,7 +37,6 @@ return new Promise (async (resolve, reject) => {
 
     // Loads DLL
 
-    // * /Users/jeffmao/Documents/GitHub/ja3spoof/golang/goturnt.dylib
     let GoRequests = ffi.Library(path.join(__dirname, '../golang/goturnt'), {
         'CreateRequest': ['string', ['string','string','string','string','string', 'string']]
     })
@@ -67,6 +66,7 @@ return new Promise (async (resolve, reject) => {
     
     res = GoRequests.CreateRequest(url, JSON.stringify(headers), JSON.stringify(cookies), body, options["method"], options["proxy"])
 
+    console.log(JSON.stringify(headers))
     let result = JSON.parse(res);
     
     for (var header in result["headers"]) {
