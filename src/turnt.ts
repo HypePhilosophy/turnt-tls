@@ -54,8 +54,8 @@ return new Promise (async (resolve, reject) => {
     }
 
     // There's no point in spoofing an ssl signature if ssl isn't used.
-    //if (!url.startsWith("https"))
-    //    throw new Error('Only https is supported.');
+    if (!url.startsWith("https"))
+       throw new Error('Only https is supported.');
 
     let res = "";
 
