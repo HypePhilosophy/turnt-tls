@@ -9,7 +9,6 @@ import (
 
 	http "github.com/adam-0001/fhttp"
 	"github.com/adam-0001/fhttp/cookiejar"
-	"github.com/elliotchance/orderedmap/v2"
 )
 
 func CreateHeaders(req *http.Request, headers string, method string) {
@@ -46,6 +45,7 @@ func CreateHeaders(req *http.Request, headers string, method string) {
 	req.Header.Set("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
 
 	var hmap map[string]string
+	var hArray []string
 
 	if headers != "{}" {
 		req.Header = http.Header{}
@@ -53,7 +53,6 @@ func CreateHeaders(req *http.Request, headers string, method string) {
 
 	json.Unmarshal([]byte(headers), &hmap)
 
-	oMap := orderedmap.NewOrderedMap[string, any]()
 	strArr := strings.Split(headers, "\",\"")
 
 	for _, v := range strArr {
@@ -61,15 +60,16 @@ func CreateHeaders(req *http.Request, headers string, method string) {
 		v = strings.ReplaceAll(v, "{", "")
 		v = strings.ToLower(v)
 		str := strings.Split(v, ":")
-		oMap.Set(str[0], "header")
+		hArray = append(hArray, str[0])
+		//oMap.Set(str[0], "header")
 	}
 
 	for k, v := range hmap {
 		req.Header.Set(k, v)
 	}
 
-	for _, key := range oMap.Keys() {
-		req.Header.Add(http.HeaderOrderKey, key)
+	for _, val := range hArray {
+		req.Header.Add(http.HeaderOrderKey, val)
 	}
 }
 

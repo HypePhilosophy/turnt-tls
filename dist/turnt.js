@@ -118,19 +118,21 @@ function turnt(url, options) {
                     cookies = options["cookies"];
                     _a.label = 3;
                 case 3:
+                    // There's no point in spoofing an ssl signature if ssl isn't used.
+                    if (!url.startsWith("https"))
+                        throw new Error('Only https is supported.');
                     res = "";
                     if (Buffer.isBuffer(body))
                         body = body.toString();
                     if (typeof body === 'object')
                         body = FormEncode(body);
-                    console.log(url);
-                    console.log(JSON.stringify(headers));
-                    console.log(JSON.stringify(cookies));
-                    console.log(body);
-                    console.log(options["method"]);
-                    console.log(options["proxy"]);
+                    // console.log(url)
+                    // console.log(JSON.stringify(headers))
+                    // console.log(JSON.stringify(cookies))
+                    // console.log(body)
+                    // console.log(options["method"])
+                    // console.log(options["proxy"])
                     res = GoRequests.CreateRequest(url, JSON.stringify(headers), JSON.stringify(cookies), body, options["method"], options["proxy"]);
-                    console.log(JSON.stringify(headers));
                     result = JSON.parse(res);
                     for (header in result["headers"]) {
                         result["headers"][header] = result["headers"][header][0];

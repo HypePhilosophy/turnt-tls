@@ -3,6 +3,7 @@ package main
 import "C"
 
 import (
+	"compress/gzip"
 	"encoding/json"
 	"fmt"
 	"github.com/adam-0001/fhttp/cookiejar"
@@ -18,7 +19,7 @@ import (
 )
 
 func main() {
-	url := "https://incolumitas.com/pages/TLS-Fingerprint/"
+	url := "https://en.zalando.de/?_rfl=de"
 	headers := "{\"accept\":\"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\",\"accept-language\":\"en-US,en;q=0.9\",\"cache-control\":\"max-age=0\",\"dnt\":\"1\",\"sec-ch-ua\":\"\\\"Chromium\\\";v=\\\"106\\\", \\\"Google Chrome\\\";v=\\\"106\\\", \\\"Not;A=Brand\\\";v=\\\"99\\\"\",\"sec-ch-ua-mobile\":\"?0\",\"sec-ch-ua-platform\":\"\\\"macOS\\\"\",\"sec-fetch-dest\":\"document\",\"sec-fetch-mode\":\"navigate\",\"sec-fetch-site\":\"none\",\"sec-fetch-user\":\"?1\",\"upgrade-insecure-requests\":\"1\",\"user-agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36\"}"
 	cookies := "{}"
 	body := ""
@@ -91,13 +92,25 @@ func CreateRequest(urlC *C.char, headerC *C.char, cookiesC *C.char, bodyC *C.cha
 
 	// Sends the request defined above.
 	resp, err := client.Do(req)
+
+	defer resp.Body.Close()
+	// Check that the server actually sent compressed data
+	var reader io.ReadCloser
+	switch resp.Header.Get("Content-Encoding") {
+	case "gzip":
+		reader, err = gzip.NewReader(resp.Body)
+		defer reader.Close()
+	default:
+		reader = resp.Body
+	}
+
 	//resp, err := client.Get(url)
 	if err != nil {
 		log.Fatal(err)
 	}
 	// Turns response body into a string, converts to cstring and returns.
 
-	bodySlice, _ := io.ReadAll(resp.Body)
+	bodySlice, _ := io.ReadAll(reader)
 
 	//buf := new(bytes.Buffer)
 	//buf.ReadFrom(resp.Body)
@@ -105,7 +118,7 @@ func CreateRequest(urlC *C.char, headerC *C.char, cookiesC *C.char, bodyC *C.cha
 
 	bodyStr := string(bodySlice)
 
-	resp.Body.Close()
+	//resp.Body.Close()
 
 	urlParsed, _ := url.Parse(dest)
 

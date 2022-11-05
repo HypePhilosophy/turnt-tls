@@ -10,7 +10,6 @@ require (
 
 require (
 	github.com/dsnet/compress v0.0.1 // indirect
-	github.com/elliotchance/orderedmap/v2 v2.2.0 // indirect
 	gitlab.com/yawning/bsaes.git v0.0.0-20190805113838-0a714cd429ec // indirect
 	gitlab.com/yawning/utls.git v0.0.12-1 // indirect
 	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de // indirect
