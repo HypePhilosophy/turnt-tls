@@ -10,7 +10,6 @@ import (
 	"io"
 	"log"
 	"net/url"
-	"strconv"
 	"strings"
 
 	"github.com/adam-0001/cclient"
@@ -69,10 +68,6 @@ func CreateRequest(urlC *C.char, headerC *C.char, cookiesC *C.char, bodyC *C.cha
 	}
 
 	CreateHeaders(req, header, method)
-
-	if method == "POST" || method == "FORM" {
-		req.Header.Set("content-length", strconv.Itoa(len(body)))
-	}
 
 	if err != nil {
 		log.Fatal(err)
