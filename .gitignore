@@ -130,3 +130,5 @@ out
 .pnp.*
 .idea
 idea/*
+
+test.js

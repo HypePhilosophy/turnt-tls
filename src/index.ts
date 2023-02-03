@@ -1,6 +1,5 @@
 import { turnt } from "./turnt";
 import { CookieJar } from "tough-cookie";
-import { inflateRaw } from "zlib";
 
 var cookieJar = new CookieJar();
 
