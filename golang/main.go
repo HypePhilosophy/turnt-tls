@@ -3,13 +3,16 @@ package main
 import "C"
 
 import (
+	"bytes"
 	"compress/gzip"
+	"compress/zlib"
 	"encoding/json"
 	"fmt"
 	"github.com/adam-0001/fhttp/cookiejar"
 	"io"
 	"log"
 	"net/url"
+	"os"
 	"strings"
 
 	"github.com/adam-0001/cclient"
@@ -88,38 +91,52 @@ func CreateRequest(urlC *C.char, headerC *C.char, cookiesC *C.char, bodyC *C.cha
 	// Sends the request defined above.
 	resp, err := client.Do(req)
 
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	defer resp.Body.Close()
 	// Check that the server actually sent compressed data
 	var reader io.ReadCloser
-	switch resp.Header.Get("Content-Encoding") {
-	case "gzip":
+
+	if strings.Contains(req.Header.Get("Accept-Encoding"), "gzip") {
+		fmt.Println("Gzip")
 		reader, err = gzip.NewReader(resp.Body)
+		if err != nil {
+			log.Println("Error decompressing gzip response, trying zlib")
+			reader, err = zlib.NewReader(resp.Body)
+			if err != nil {
+				log.Println("Error decompressing zlib response, trying raw")
+				reader = resp.Body
+			}
+		}
+
 		defer reader.Close()
-	default:
+	} else {
+		fmt.Println("Raw")
 		reader = resp.Body
 	}
 
-	//resp, err := client.Get(url)
+	//switch resp.Header.Get("Content-Encoding") {
+	//case "gzip":
+	//	reader, err = gzip.NewReader(resp.Body)
+	//	defer reader.Close()
+	//default:
+	//	reader = resp.Body
+	//}
+
 	if err != nil {
 		log.Fatal(err)
 	}
 	// Turns response body into a string, converts to cstring and returns.
 
 	bodySlice, _ := io.ReadAll(reader)
-
-	//buf := new(bytes.Buffer)
-	//buf.ReadFrom(resp.Body)
-	//bodyStr := buf.String()
-
 	bodyStr := string(bodySlice)
-
-	//resp.Body.Close()
 
 	urlParsed, _ := url.Parse(dest)
 
 	respMap := make(map[string]interface{})
 	respMap["headers"] = resp.Header
-	//respMap["cookies"] = resp.Cookies()
 	respMap["cookies"] = client.Jar.Cookies(urlParsed)
 	respMap["body"] = bodyStr
 	respMap["status"] = resp.StatusCode
@@ -128,4 +145,23 @@ func CreateRequest(urlC *C.char, headerC *C.char, cookiesC *C.char, bodyC *C.cha
 	respJson, _ := json.Marshal(respMap)
 
 	return C.CString(string(respJson))
+}
+
+func readGzip(content []byte) error {
+	var buf *bytes.Buffer = bytes.NewBuffer(content)
+
+	gRead, err := zlib.NewReader(buf)
+	if err != nil {
+		return err
+	}
+
+	if t, err := io.Copy(os.Stdout, gRead); err != nil {
+		fmt.Println(t)
+		return err
+	}
+
+	if err := gRead.Close(); err != nil {
+		return err
+	}
+	return nil
 }
